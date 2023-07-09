@@ -17,20 +17,20 @@ class WeatherApp extends StatefulWidget {
 class _WeatherAppState extends State<WeatherApp> {
   bool isLoading = false;
   bool fetchingError = true;
-  String _location = 'Your location';
-  String _temperature = 'N/A';
-  String _weatherDescription = 'N/A';
-  String _max = "N/A";
-  String _min = "N/A";
-  Image _weatherIcon = Image.network("https://www.noaa.gov/weather");
+  String location = 'Your location';
+  String temperature = 'N/A';
+  String weatherDescription = 'N/A';
+  String max = "N/A";
+  String min = "N/A";
+  Image weatherIcon = Image.network("https://www.noaa.gov/weather");
 
   @override
   void initState() {
     super.initState();
-    _getWeather();
+    getWeather();
   }
 
-  Future<void> _getWeather() async {
+  Future<void> getWeather() async {
     isLoading = true;
     fetchingError = false;
     setState(() {});
@@ -39,20 +39,20 @@ class _WeatherAppState extends State<WeatherApp> {
     http.Response response = await http.get(url);
     if (response.statusCode == 200) {
       var jsonData = json.decode(response.body);
-      _location = jsonData['name'];
-      _temperature = jsonData['main']['temp'].toString();
-      _min = jsonData['main']['temp_min'].toString();
-      _max = jsonData['main']['temp_max'].toString();
+      location = jsonData['name'];
+      temperature = jsonData['main']['temp'].toString();
+      min = jsonData['main']['temp_min'].toString();
+      max = jsonData['main']['temp_max'].toString();
 
-      _weatherDescription = jsonData['weather'][0]['description'];
-      _weatherIcon = Image.network(
+      weatherDescription = jsonData['weather'][0]['description'];
+      weatherIcon = Image.network(
         'https://openweathermap.org/img/wn/${jsonData['weather'][0]['icon']}.png',
       );
       setState(() {});
     } else {
-      _temperature = 'N/A';
-      _weatherDescription = 'N/A';
-      _weatherIcon = Image.network(
+      temperature = 'N/A';
+      weatherDescription = 'N/A';
+      weatherIcon = Image.network(
         "https://www.noaa.gov/weather",
       );
       setState(() {});
@@ -74,6 +74,18 @@ class _WeatherAppState extends State<WeatherApp> {
         centerTitle: true,
         elevation: 0,
         backgroundColor: Colors.transparent,
+        actions: [
+          IconButton(
+            onPressed: () {
+              getWeather();
+            },
+            icon: const Icon(
+              Icons.refresh,
+              size: 32,
+              color: Colors.white70,
+            ),
+          ),
+        ],
       ),
       body: isLoading
           ? const Center(
@@ -100,7 +112,7 @@ class _WeatherAppState extends State<WeatherApp> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          _location,
+                          location,
                           style: GoogleFonts.acme(fontSize: 45),
                         ),
                         const SizedBox(
@@ -110,12 +122,12 @@ class _WeatherAppState extends State<WeatherApp> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            _weatherIcon,
+                            weatherIcon,
                             const SizedBox(
                               width: 50,
                             ),
                             Text(
-                              "$_temperature °C",
+                              "$temperature °C",
                               style: GoogleFonts.lato(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 30,
@@ -126,8 +138,8 @@ class _WeatherAppState extends State<WeatherApp> {
                             ),
                             Column(
                               children: [
-                                Text("$_max °C"),
-                                Text("$_min °C"),
+                                Text("$max °C"),
+                                Text("$min °C"),
                               ],
                             ),
                           ],
@@ -136,7 +148,7 @@ class _WeatherAppState extends State<WeatherApp> {
                           height: 20,
                         ),
                         Text(
-                          _weatherDescription,
+                          weatherDescription,
                           style: const TextStyle(fontSize: 16),
                         ),
                         const SizedBox(
