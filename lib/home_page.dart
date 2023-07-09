@@ -115,6 +115,12 @@ class _WeatherAppState extends State<WeatherApp> {
                           location,
                           style: GoogleFonts.acme(fontSize: 45),
                         ),
+
+                        Text(
+                          "Updated: ${DateTime.now().hour}:${DateTime.now().minute}",
+                          style: const TextStyle(fontSize: 16),
+                        ), // create a new DateTime instance with current time only
+
                         const SizedBox(
                           height: 20,
                         ),
