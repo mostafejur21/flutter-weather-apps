@@ -20,5 +20,6 @@ samples, guidance on mobile development, and a full API reference.
 ### Screenshot of the Apps UI: 
 
 
-![Screenshot_1688933224](https://github.com/mostafejur21/flutter-weather-apps/assets/106027543/d15f23b2-8f7b-43be-9d1d-cad09b2146df)
+
+![Screenshot_1688935662](https://github.com/mostafejur21/flutter-weather-apps/assets/106027543/d04a9a30-17be-4d56-97aa-d17719279b94)
 
