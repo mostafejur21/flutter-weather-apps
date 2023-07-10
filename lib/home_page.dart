@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 
-const apiKey = '4e7e12104089e40237206f1c39f1ba50';
+const _apiKey = '4e7e12104089e40237206f1c39f1ba50';
 
 class WeatherApp extends StatefulWidget {
   const WeatherApp({super.key});
@@ -35,7 +35,7 @@ class _WeatherAppState extends State<WeatherApp> {
     fetchingError = false;
     setState(() {});
     var url = Uri.parse(
-        "https://api.openweathermap.org/data/2.5/weather?q=Dhaka&units=metric&appid=$apiKey");
+        "https://api.openweathermap.org/data/2.5/weather?q=Dhaka&units=metric&appid=$_apiKey");
     http.Response response = await http.get(url);
     if (response.statusCode == 200) {
       var jsonData = json.decode(response.body);
